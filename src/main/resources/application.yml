@@ -14,3 +14,8 @@ spring:
         format-sql: true
     database: MYSQL
     database-platform: org.hibernate.dialect.MariaDBDialect
+
+# Logging Configuration
+logging:
+  level:
+    org.springframework.security: DEBUG

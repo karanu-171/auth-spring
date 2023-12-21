@@ -21,17 +21,17 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
-    @Bean
+     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(Customizer.withDefaults())
-                .authorizeHttpRequests(authorize -> authorize
-                                .requestMatchers("/api/v1/auth/register").permitAll()
-                                .anyRequest().authenticated())
+                  .authorizeHttpRequests(authorize -> authorize
+                      .requestMatchers("/api/v1/auth", "/api/v1/auth/register").permitAll()
+                .anyRequest().authenticated())
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // Add this line
 
         return http.build();
     }
